@@ -16,6 +16,23 @@ docker run -d --name mongodb --network my-network -v mongo-data:/data/db -p 2701
 
 - Starts MongoDB with the correct environment variables.
 - The -d option runs the container in detached mode, meaning it runs in the background and does not block your terminal.
+- **-v mongo-data:/data/db:** This command mounts a Docker volume named mongo-data to the container's /data/db directory. This directory is where MongoDB stores its data files. The volume ensures data persistence, meaning the data will be preserved even if the container is stopped or removed.
+- **-e MONGO_INITDB_ROOT_USERNAME=root:**
+This environment variable sets the root username for MongoDB. In this case, it is set to root.
+- **-e MONGO_INITDB_ROOT_PASSWORD=example:**
+This environment variable sets the root password for MongoDB. In this case, it is set to example.
+- **mongo:latest:** This specifies the Docker image to use for the container. mongo is the official MongoDB image from Docker Hub, and latest specifies that the latest version of the image should be used.
+
+#### Purpose of these Environment Variables:
+<ins>Security Initialization:</ins>
+
+- <ins>Security Initialization</ins>: These environment variables ensure that the MongoDB instance is initialized with a secure administrative user. Without specifying these variables, MongoDB might start without authentication, which is not recommended for production environments.
+Automated Setup:
+
+- <ins>Automated Setup</ins>: By specifying these environment variables, the MongoDB Docker container can automatically set up the root user without requiring manual intervention after the container starts. This is particularly useful for automated deployments and CI/CD pipelines.
+Configuration Consistency:
+
+- <ins>Configuration Consistency</ins>: Using environment variables helps maintain consistent configurations across different environments (e.g., development, testing, production) by allowing you to easily change the values without modifying the container configuration scripts.
 
 ## Accessing MongoDB
 ```sh
